@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive Demo | Ellevux</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    .demo-hero {
+      padding: 10rem 0 5rem;
+      text-align: center;
+    }
+    .demo-hero h1 {
+      font-size: clamp(2.5rem, 5vw, 3.5rem);
+      margin-bottom: 1.5rem;
+    }
+    .demo-showcase {
+      padding-bottom: 10rem;
+    }
+
+    .demo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-top: 4rem;
+    }
+    .scenario-card {
+      padding: 2.5rem;
+      border-radius: 32px;
+      /* Match global glass settings */
+      background: rgba(255, 255, 255, 0.02); 
+      backdrop-filter: blur(32px) saturate(180%);
+      -webkit-backdrop-filter: blur(32px) saturate(180%);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+      transition: var(--transition);
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+    .scenario-card:hover {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: var(--primary);
+      transform: translateY(-8px);
+    }
+    .scenario-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #FFFFFF;
+      margin-bottom: 2rem;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.05);
+    }
+    .chat-bubble {
+      padding: 1rem 1.25rem;
+      border-radius: 18px;
+      margin-bottom: 1rem;
+      font-size: 0.95rem;
+      max-width: 85%;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+    .chat-ai {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      align-self: flex-start;
+      border-bottom-left-radius: 4px;
+      color: #fff;
+    }
+    .chat-user {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      margin-left: auto;
+      border-bottom-right-radius: 4px;
+      color: var(--text-secondary);
+    }
+    .cta-demo {
+      text-align: center;
+      padding: 10rem 0;
+      margin-bottom: 0;
+    }
+    .audio-player {
+      margin-top: 1.5rem;
+      padding: 1rem;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .audio-info {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.5rem;
+    }
+    .audio-tag {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: #fff;
+      letter-spacing: 0.05em;
+    }
+    .audio-time {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+    }
+    .custom-audio {
+      width: 100%;
+      height: 35px;
+      filter: invert(1) hue-rotate(180deg) brightness(1.5);
+      opacity: 0.8;
+    }
+    .featured-card {
+      grid-column: 1 / -1;
+      text-align: center;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.05) !important;
+      border-color: rgba(255, 255, 255, 0.2) !important;
+    }
+    .featured-card .audio-player {
+      max-width: 600px;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+
+  <nav id="navbar">
+    <div class="container nav-content">
+      <a href="index.html" class="logo">
+        <img src="logo.png" alt="Ellevux Logo" style="height: 150px; width: auto; filter: invert(1);">
+      </a>
+      <div class="nav-links">
+        <a href="index.html#features">Features</a>
+        <a href="index.html#how">How it Works</a>
+      </div>
+      <div class="nav-btns">
+        <a href="demo.html" class="btn btn-secondary">Demo</a>
+        <a href="waitlist.html" class="btn btn-primary">Join Waitlist</a>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <section class="demo-hero reveal active">
+      <div class="container">
+        <h1>Ellevux in <span>Action</span>.</h1>
+        <p>Witness how AI seamlessly handles your business scheduling, lead qualification, and customer follow-ups.</p>
+      </div>
+    </section>
+
+    <section class="demo-showcase container reveal active">
+
+
+      <div class="demo-grid">
+        <div class="scenario-card featured-card">
+          <div class="scenario-icon"><i data-lucide="mic"></i></div>
+          <h3>AI Voice Sample</h3>
+          <p>Listen to a real life recording of our AI agent qualifying an inbound lead and booking an appointment.</p>
+          <div class="audio-player">
+            <div class="audio-info">
+              <span class="audio-tag">AI Call Sample</span>
+
+            </div>
+            <audio controls class="custom-audio">
+              <source src="demo.wav" type="audio/wav">
+              <source src="demo.mp3" type="audio/mpeg">
+              Your browser does not support the audio element.
+            </audio>
+          </div>
+        </div>
+
+        <div class="scenario-card">
+          <div class="scenario-icon"><i data-lucide="message-square"></i></div>
+          <h3>Lead Qualification</h3>
+          <p>Watch as the AI conversations engage and qualify leads before they ever reach your calendar.</p>
+          <div style="margin-top: 2rem; display: flex; flex-direction: column;">
+            <div class="chat-bubble chat-user">"I'm looking for a premium SEO audit."</div>
+            <div class="chat-bubble chat-ai">"Great! I can help with that. What is your monthly budget for SEO services?"</div>
+          </div>
+        </div>
+        
+        <div class="scenario-card">
+          <div class="scenario-icon"><i data-lucide="calendar-check"></i></div>
+          <h3>Instant Booking</h3>
+          <p>See real time synchronization with Google calendars for conflict free scheduling.</p>
+          <div style="margin-top: 1.5rem; text-align: center; opacity: 0.7;">
+            <i data-lucide="calendar" style="width: 48px; height: 48px; color: var(--primary);"></i>
+            <p style="font-size: 0.8rem; margin-top: 0.5rem;">Synced with your calendar</p>
+          </div>
+        </div>
+
+        <div class="scenario-card">
+          <div class="scenario-icon"><i data-lucide="repeat"></i></div>
+          <h3>No-Show Recovery</h3>
+          <p>Automated SMS and email sequences that re-engage leads who missed calls or appointments.</p>
+          <div style="margin-top: 1.5rem; font-style: italic; font-size: 0.85rem; border-left: 2px solid var(--primary); padding-left: 1rem; opacity: 0.8;">
+            "Hey Sarah, we missed you on our call! Click here to reschedule instantly..."
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="cta-demo container reveal active">
+      <h2>Ready to <span>Automate</span>?</h2>
+      <p style="margin-bottom: 2rem; color: var(--text-secondary);">Join our waitlist for exclusive early access and a guided onboarding session.</p>
+      <a href="waitlist.html" class="btn btn-primary">Join Waitlist <i data-lucide="arrow-right" style="margin-left: 8px;"></i></a>
+    </section>
+  </main>
+
+  <footer class="fade-in">
+    <div class="container footer-minimal">
+      <div class="footer-left">
+        <a href="index.html" class="logo">
+          <img src="logo.png" alt="Ellevux Logo" style="height: 110px; width: auto; filter: invert(1);">
+        </a>
+      </div>
+      <div class="footer-center">
+        <a href="privacy_policy.html">Privacy Policy</a>
+        <a href="terms.html">Terms of Service</a>
+        <span class="separator">|</span>
+        <a href="https://www.instagram.com/ellevux/" target="_blank">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="social-icon"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+        </a>
+        <a href="mailto:hello@ellevux.com">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="social-icon"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+        </a>
+      </div>
+      <div class="footer-right">
+        <p>&copy; 2025 Ellevux. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>
