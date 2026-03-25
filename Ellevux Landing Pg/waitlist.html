@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Join the Waitlist | Ellevux</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@24.5.0/build/css/intlTelInput.css">
   <script src="https://unpkg.com/lucide@latest"></script>
   <style>
     .waitlist-page {
@@ -82,6 +83,43 @@
       justify-content: center;
       margin: 0 auto 1.5rem;
     }
+
+    /* International Tel Input Overrides */
+    .iti {
+      width: 100%;
+    }
+    .iti__country-list {
+      background-color: #030D0A;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      color: #fff;
+    }
+    .iti__country {
+      padding: 10px 15px;
+      transition: background 0.2s;
+    }
+    .iti__country:hover, .iti__country.iti__highlight {
+      background-color: rgba(255, 255, 255, 0.05);
+    }
+    .iti__selected-country-name {
+      color: #fff;
+    }
+    .iti__search-input {
+      background: #030D0A !important;
+      border: 1px solid rgba(255, 255, 255, 0.2) !important;
+      color: #fff !important;
+      border-radius: 8px !important;
+      padding: 10px !important;
+      box-sizing: border-box !important;
+      width: calc(100% - 10px) !important;
+    }
+    .iti__dropdown-content {
+      background-color: #030D0A !important;
+    }
+    .iti__dial-code {
+      color: var(--text-secondary);
+    }
   </style>
 </head>
 <body>
@@ -118,6 +156,10 @@
               <label for="email">Work Email</label>
               <input type="email" id="email" placeholder="john@company.com" required>
             </div>
+            <div class="form-group">
+              <label for="mobile">Mobile Number</label>
+              <input type="tel" id="mobile" placeholder="(555) 000-0000" oninput="this.value=this.value.replace(/[^0-9]/g,''); if(this.value.length>10) this.value=this.value.slice(0,10);" required>
+            </div>
             <button type="submit" class="btn btn-primary">Get Early Access <i data-lucide="arrow-right" style="margin-left: 8px;"></i></button>
           </form>
 
@@ -143,8 +185,12 @@
         <a href="privacy_policy.html">Privacy Policy</a>
         <a href="terms.html">Terms of Service</a>
         <span class="separator">|</span>
-        <a href="#"><i data-lucide="instagram"></i></a>
-        <a href="#"><i data-lucide="mail"></i></a>
+        <a href="https://www.instagram.com/ellevux/" target="_blank">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="social-icon"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+        </a>
+        <a href="mailto:hello@ellevux.com">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="social-icon"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+        </a>
       </div>
       <div class="footer-right">
         <p>&copy; 2025 Ellevux. All rights reserved.</p>
@@ -153,10 +199,27 @@
   </footer>
 
   <script src="main.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@24.5.0/build/js/intlTelInput.min.js"></script>
   <script>
-    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw8KlERZiCIIRWiHad-6K2t8-PAKZXLMceXTEg0trap2PPrsknY8fudyyLghyHINrPqbQ/exec';
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz05sBKsRGarU2kRuWJluSjhjT0QYaq-l_bz1iaG6G0hWPw_YHW8bcyRuuleIoQQwdnbQ/exec';
     const form = document.getElementById('waitlist-form');
     const submitBtn = form.querySelector('button[type="submit"]');
+    const phoneInput = document.querySelector("#mobile");
+
+    const iti = window.intlTelInput(phoneInput, {
+      utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@24.5.0/build/js/utils.js",
+      initialCountry: "auto",
+      geoIpLookup: callback => {
+        fetch("https://ipapi.co/json")
+          .then(res => res.json())
+          .then(data => callback(data.country_code))
+          .catch(() => callback("us"));
+      },
+      separateDialCode: true,
+      preferredCountries: ["us", "gb", "ca", "au"]
+    });
+
+    // Mobile Number initialization and handling is done above in ITI and oninput attribute
 
     form.addEventListener('submit', function(e) {
       e.preventDefault();
@@ -168,7 +231,8 @@
 
       const formData = {
         name: document.getElementById('name').value,
-        email: document.getElementById('email').value
+        email: document.getElementById('email').value,
+        mobile: iti.getNumber() // Get full international number
       };
 
       // Send to Google Sheets
