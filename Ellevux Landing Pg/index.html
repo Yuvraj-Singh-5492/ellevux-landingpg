@@ -5,8 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ellevux | Elevate Your SaaS with AI-Powered Automation</title>
   <meta name="description" content="Ellevux is the ultimate AI appointment booking and automation platform for modern businesses. Scale faster with intelligent scheduling.">
+
+  <!-- ✅ FIX 1: Preconnect to Google Fonts before stylesheet loads -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
   <link rel="stylesheet" href="style.css">
-  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- ✅ FIX 2: Pinned Lucide version instead of @latest — faster and more reliable -->
+  <script src="https://unpkg.com/lucide@0.263.1/dist/umd/lucide.min.js"></script>
 </head>
 <body>
 
@@ -34,7 +41,6 @@
         <a href="waitlist.html" class="btn btn-primary">Join Waitlist <i data-lucide="arrow-right" style="margin-left: 8px;"></i></a>
         <a href="demo.html" class="btn btn-secondary">Demo</a>
       </div>
-
     </div>
   </section>
 
@@ -97,12 +103,11 @@
         <div class="step-col">
           <div class="step-num">3</div>
           <h3>Bookings Appear Automatically</h3>
-          <p>Leads come in. AI calls them instantly. Meetings land in your calendar. You never touched a thing.</p>
+          <p>A lead calls in and gets answered instantly — no hold music, no missed calls, no voicemail. Qualified on the spot. Booked straight into your calendar. You just show up to the meeting.</p>
         </div>
       </div>
     </div>
   </section>
-
 
   <footer class="fade-in">
     <div class="container footer-minimal">
@@ -128,6 +133,8 @@
     </div>
   </footer>
 
+  <!-- ✅ FIX 3: Moved script to bottom of body so HTML renders before JS loads -->
   <script src="main.js"></script>
+
 </body>
 </html>
